@@ -65,13 +65,35 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildProductCard(
-      BuildContext ctx, Product product, BuildContext context) {
+    BuildContext ctx,
+    Product product,
+    BuildContext context,
+  ) {
+    Map<String, String> devices = {
+      "Laptop": "assets/laptop.jpeg",
+      "laptop2": "assets/laptop2.jpeg",
+      "laptop3": "assets/laptop3.jpeg",
+      "laptop4": "assets/laptop4.jpeg",
+      "Professional DSLR Camera": "assets/nikon.jpeg",
+      "Smartphone": "assets/phone.jpeg",
+      "phone2": "assets/phone2.jpeg",
+      "Gaming Console": "assets/ps5.jpeg",
+      "Energy-Efficient Refrigerator": "assets/fridge.jpeg",
+      "Smartwatch": "assets/smartwatch.jpg",
+      "Tablet": "assets/tablet.jpeg",
+      "Wireless Headphones": "assets/tws.webp",
+      "Smart TV": "assets/tv.webp"
+    };
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ProductDetailsPage(product: product),
+              builder: (context) => ProductDetailsPage(
+                product: product,
+                image: devices[product.name]!,
+              ),
             ));
       },
       child: Card(
@@ -82,23 +104,13 @@ class HomePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.network(
-                product.image,
-                height: 100,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  // Display placeholder or error image when loading fails
-                  return Container(
-                    height: 100,
-                    color: Colors.grey[200],
-                    child: const Icon(
-                      Icons.broken_image,
-                      color: Colors.grey,
-                      size: 50,
-                    ),
-                  );
-                },
-              ),
+              SizedBox(
+                  height: 100,
+                  width: 100,
+                  child: Image.asset(
+                    devices[product.name] ?? "Laptop",
+                    fit: BoxFit.contain,
+                  )),
               const SizedBox(height: 8),
               Text(
                 product.name,

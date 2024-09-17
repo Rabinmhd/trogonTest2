@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trogon_machine_test_2/models/model.dart';
 
+// ignore: must_be_immutable
 class ProductDetailsPage extends StatelessWidget {
   final Product product;
+  String image;
 
-  ProductDetailsPage({super.key, required this.product});
+  ProductDetailsPage({super.key, required this.product, required this.image});
 
   final RxBool isFavorite = false.obs;
 
@@ -37,23 +39,13 @@ class ProductDetailsPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Product Image
-            Image.network(
-              product.image,
-              height: 100,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                // Display placeholder or error image when loading fails
-                return Container(
-                  height: 100,
-                  color: Colors.grey[200],
-                  child: const Icon(
-                    Icons.broken_image,
-                    color: Colors.grey,
-                    size: 50,
-                  ),
-                );
-              },
-            ),
+            SizedBox(
+                height: 200,
+                width: 200,
+                child: Image.asset(
+                  image,
+                  fit: BoxFit.contain,
+                )),
             const SizedBox(height: 16),
             // Product Name
             Text(
